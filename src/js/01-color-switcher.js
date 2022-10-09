@@ -16,16 +16,18 @@ function changeColor() {
 }
 
 function startHandler() {
-  startBtn.disabled = true;
-  stopBtn.disabled = false;
+  if (isRunningChange) return;
+  isRunningChange = true;
+  refs.startBtn.disabled = true;
 
   changeColor();
-  timerId = setInterval(changeColor, 1000);
+  intervalId = setInterval(changeBodyColor, CHANGE_COLOR_INTERVAL);
 }
 
 function stopHandler() {
-  startBtn.disabled = false;
-  stopBtn.disabled = true;
+  if (!isRunningChange) return;
+  isRunningChange = false;
 
-  clearInterval(timerId);
+  clearInterval(intervalId);
+  refs.startBtn.disabled = false;
 }
